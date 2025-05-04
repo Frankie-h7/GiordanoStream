@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GiordanoStream - Film & Serie TV</title>
+  <link rel="icon" href="film&serie/GiordanoStream.ico" type="image/x-icon">
+  <link rel="stylesheet" href="BKstyles.css" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!-- Plyr CSS -->
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+<link rel="manifest" href="manifest.json" />
+
+</head>
+<body>
+  <header>
+    <div class="logo">🎬 GiordanoStream</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#" id="nav-home">Home</a></li>
+        <li><a href="#" id="nav-film">Film</a></li>
+        <li><a href="#" id="nav-serie">Serie TV</a></li>
+        <li><a href="#" id="nav-preferiti">Preferiti</a></li>        
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Benvenuto su GiordanoStream</h1>
+      <p>Guarda film e serie TV in streaming, gratuitamente e senza limiti.</p>
+    </section>
+
+    <section class="content">
+      <h2>In evidenza</h2>
+      <div class="card-container" id="featured-container">
+        <!-- Le card dei contenuti verranno aggiunte via JavaScript -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 StreamZone. Tutti i diritti riservati.</p>
+  </footer>
+
+  <!-- Overlay che appare quando sei offline -->
+<div id="offline-overlay" style="display: none;">
+  <div class="overlay-content">
+    <h2>Sei offline 🚫</h2>
+    <p>Non puoi guardare Film & Serie TV senza una connessione a Internet.</p>
+    <p>╭∩╮( •̀_•́ )╭∩╮</p>
+  </div>
+</div>
+
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+  <script src="film&serie/film.js"></script>
+  <script src="film&serie/serie.js"></script>
+  <script src="film&serie/film&serie.js"></script>
+  <script src="BKscript.js"></script>
+  <script src="version-checker.js"></script>  <!-- Controlla se è la versione aggiornata -->
+</body>
+</html>

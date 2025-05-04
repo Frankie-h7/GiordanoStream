@@ -1,0 +1,538 @@
+/* Impostazioni base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    line-height: 1.6;
+
+    /* Serve per occupare tutto lo spazio disponibile e mantenere il footer in fondo */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Occupa almeno tutta l'altezza della viewport */
+  }
+  
+  /* 2. Il main deve crescere per occupare lo spazio disponibile */
+  main {
+    flex: 1;
+  }
+
+    /* Overlay che appare quando sei offline */
+#offline-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: none; /* Sarà mostrato tramite JS quando offline */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  color: white;
+  text-align: center;
+  padding: 30px;
+}
+
+.overlay-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.overlay-content h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.overlay-content p {
+  font-size: 1.2rem;
+}
+  
+  #desktop-overlay .overlay-content {
+    max-width: 400px;
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e1e1e;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #333;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff3c3c;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  .nav-links a:hover {
+    color: #ff3c3c;
+  }
+  
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(to right, #1a1a1a, #121212);
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    color: #bbbbbb;
+  }
+  
+  /* Content Section */
+  .content {
+    padding: 2rem;
+  }
+  
+  .content h2 {
+    margin-bottom: 1rem;
+    border-left: 4px solid #ff3c3c;
+    padding-left: 1rem;
+  }
+  
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  
+  /* Card Style */
+  .card {
+    position: relative;
+    /* altri stili della card */
+    background-color: #1f1f1f;
+    border-radius: 10px;
+    overflow: visible; /* Cambiato da 'hidden' */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    /* Posiziona le card in colonne e la copertina si vede intera */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  }
+  
+  .card img {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    transition: opacity 0.3s ease;
+    /* Per far vedere il bottone dei Preferiti */
+    position: relative;
+  }
+
+  /* Gg */
+  .card-image-container {
+    position: relative;
+    flex: 1;
+    z-index: 0;
+  }
+
+  .card:hover img {
+    opacity: 0.8;
+  }
+  
+  .card .card-body {
+    padding: 1rem;
+  }
+  
+  .card .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .card .card-description {
+    font-size: 0.85rem;
+    color: #cccccc;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #1e1e1e;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 3rem;
+  }
+  
+  /* Stile Video Player */
+  .plyr--video {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .plyr__controls {
+    background: rgba(30, 30, 30, 0.8);
+  }
+  
+  .plyr__control {
+    color: #ff3c3c !important;
+  }
+
+/* Stile Video Wrapper (già presente nel js) */
+.plyr__video-embed iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+/* Modal Style */
+.video-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 0;
+  overflow: hidden; /* Nasconde eventuali scrollbar */
+}
+
+.video-wrapper {
+  width: 90vw;
+  height: auto;
+  max-width: 1200px; /* Limita la larghezza massima */
+  max-height: 80vh; /* Limita l'altezza */
+  background: #111;
+  border-radius: 10px;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-wrapper h2 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.video-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important; /* Mantiene la proporzione corretta senza deformare */
+  border-radius: 8px;
+}
+
+/* Close button */
+.close-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #ff3c3c;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.plyr {
+  height: 100%;
+  width: 100%;
+  max-height: 100%;
+}
+
+/* Stile Bottoni deigli episodi per le Serie TV */
+.episode-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.episode-btn, .back-btn {
+  flex: 1 1 auto;
+  padding: 0.6rem 1.2rem;
+  background-color: #1e1e1e;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.episode-btn:hover, .back-btn:hover {
+  background-color: #333;
+  transform: scale(1.03);
+}
+
+/* Stile Stellina Preferiti */
+/* Aggiungi queste regole alla sezione CSS esistente */
+
+  /* Stile Pulsante Preferiti - Versione migliorata */
+  .fav-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(30, 30, 30, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 3px;
+    z-index: 20;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+  
+  .fav-btn:hover {
+    background: rgba(255, 215, 0, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 215, 0, 0.4);
+    transform: scale(1.15);
+  }
+  
+  .fav-btn.active {
+    color: gold;
+    background: rgba(255, 215, 0, 0.3);
+    border-color: gold;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  }
+  
+  .fav-btn.animate {
+    animation: pulse 0.5s ease;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+  
+  .fav-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .card-container {
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+    
+    .fav-btn {
+      width: 35px;
+      height: 35px;
+      font-size: 1.3rem;
+    }
+  }
+
+  /* Non hai ancora aggiunto contenuti ai preferiti. */
+  .no-favorites-msg {
+    font-size: 1.5rem;
+    color: #aaa;
+    text-align: center;
+    padding: 6.2rem;
+    margin-bottom: 0rem;
+    font-style: italic;
+    opacity: 0.8;
+  }
+  
+
+  /* Aggiungi queste regole in fondo al tuo CSS esistente */
+
+/* Stili Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+  /* Header più compatto */
+  header {
+    padding: 0.8rem 1rem;
+  }
+  
+  .logo {
+    font-size: 10px;
+  }
+  
+  .nav-links {
+    gap: 1px;
+  }
+
+  #nav-home, #nav-film, #nav-serie, #nav-preferiti {
+  font-size: 10px; padding: 3px;
+  }
+  
+  /* Hero section più piccola */
+  .hero {
+    padding: 2rem 1rem;
+  }
+  
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+  
+  .hero p {
+    font-size: 0.8rem;
+  }
+
+  h2{
+    font-size: 0.8rem;
+  }
+  
+  /* Card più compatte */
+  .card {
+    border-radius: 8px;
+  }
+
+  .card img {
+    min-height: 200px;
+  }
+  
+  .card .card-title {
+    font-size: 1rem;
+  }
+  
+  .card .card-description {
+    font-size: 0.8rem;
+    -webkit-line-clamp: 2;
+  }
+  
+  /* Effetto pop-up per tutti i bottoni */
+  button, .btn, .nav-links a, .episode-btn, .back-btn, .close-btn, .fav-btn {
+    transition: all 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  }
+  
+  button:active, .btn:active, .nav-links a:active, 
+  .episode-btn:active, .back-btn:active, .close-btn:active, 
+  .fav-btn:active {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+  
+  /* Pulsanti di navigazione */
+  .nav-links a {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Pulsanti episodi */
+  .episode-btn, .back-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  /* Pulsante chiudi */
+  .close-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Pulsante preferiti */
+  .fav-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+    top: 10px;
+    right: 10px;
+  }
+  
+  /* Video modal più compatto */
+  .video-wrapper {
+    width: 95vw;
+    padding: 0.8rem;
+  }
+  
+  .video-wrapper h2 {
+    font-size: 1.2rem;
+  }
+  
+  /* Messaggio nessun preferito */
+  .no-favorites-msg {
+    padding: 5.8rem 1rem;
+    font-size: 1.1rem;
+  }
+
+  footer {
+    font-size: 0.7rem;
+  }
+}
+
+/* Animazione pop-up più pronunciata per mobile */
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+  button:active, .btn:active, .nav-links a:active, 
+  .episode-btn:active, .back-btn:active, .close-btn:active, 
+  .fav-btn:active {
+    animation: pop 0.3s ease;
+  }
+}
+
+/* Miglioramento touch per dispositivi mobili */
+@media (hover: none) {
+  .card:hover {
+    transform: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  }
+  
+  .fav-btn:hover {
+    transform: none;
+    background: rgba(30, 30, 30, 0.9);
+  }
+  
+  .episode-btn:hover, .back-btn:hover {
+    transform: none;
+    background-color: #1e1e1e;
+  }
+}
